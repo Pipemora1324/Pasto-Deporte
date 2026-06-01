@@ -97,17 +97,25 @@ public class SecurityConfig {
 
     /**
      * Configuracion CORS que permite peticiones desde el frontend Angular
-     * en {@code localhost:4200}.
+     * en desarrollo (localhost) y en produccion (Vercel).
+     *
+     * <p>Se usa {@code setAllowedOriginPatterns} en lugar de {@code setAllowedOrigins}
+     * para poder usar el wildcard {@code *.vercel.app} con credenciales.</p>
      *
      * <p><b>Pilar POO — ENCAPSULAMIENTO:</b> configuracion CORS encapsulada
      * en un bean aislado del resto de la configuracion.</p>
      *
-     * @return {@link CorsConfigurationSource} configurada para el origen del frontend
+     * @return {@link CorsConfigurationSource} configurada para los origenes del frontend
      */
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:4200"));
+        configuration.setAllowedOriginPatterns(List.of(
+            "http://localhost:4200",
+            "https://pasto-deporte.vercel.app",
+            "https://pasto-deporte-git-main-pipemora1324s-projects.vercel.app",
+            "https://*.vercel.app"
+        ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept"));
         configuration.setAllowCredentials(true);
