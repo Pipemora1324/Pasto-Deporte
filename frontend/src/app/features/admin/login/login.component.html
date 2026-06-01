@@ -1,0 +1,79 @@
+<div class="login-page">
+  <div class="login-container">
+    <mat-card class="login-card">
+      <div class="login-brand">
+        <div class="brand-icon">
+          <mat-icon>sports_soccer</mat-icon>
+        </div>
+        <h1 class="brand-name">PASTO DEPORTE</h1>
+        <p class="brand-sub">Sistema de Certificación</p>
+      </div>
+
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>admin_panel_settings</mat-icon>
+          Acceso Administrativo
+        </mat-card-title>
+        <mat-card-subtitle>Ingresa tus credenciales para continuar</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Usuario</mat-label>
+            <input matInput formControlName="username" placeholder="Ingresa tu usuario">
+            <mat-icon matPrefix>person</mat-icon>
+            <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
+              El usuario es requerido
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Contraseña</mat-label>
+            <input
+              matInput
+              formControlName="password"
+              [type]="hidePassword ? 'password' : 'text'"
+              placeholder="Ingresa tu contraseña"
+            >
+            <mat-icon matPrefix>lock</mat-icon>
+            <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
+              <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+              La contraseña es requerida
+            </mat-error>
+            <mat-error *ngIf="loginForm.get('password')?.hasError('minlength')">
+              La contraseña debe tener al menos 4 caracteres
+            </mat-error>
+          </mat-form-field>
+
+          <div class="error-alert" *ngIf="errorMessage">
+            <mat-icon>error_outline</mat-icon>
+            <span>{{ errorMessage }}</span>
+          </div>
+
+          <button
+            mat-raised-button
+            color="primary"
+            class="full-width login-btn"
+            type="submit"
+            [disabled]="loading || loginForm.invalid"
+          >
+            <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
+            <mat-icon *ngIf="!loading">login</mat-icon>
+            <span>{{ loading ? 'Ingresando...' : 'Ingresar' }}</span>
+          </button>
+        </form>
+      </mat-card-content>
+
+      <mat-card-footer>
+        <div class="login-footer">
+          <a mat-button routerLink="/">
+            <mat-icon>arrow_back</mat-icon> Volver al inicio
+          </a>
+        </div>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+</div>

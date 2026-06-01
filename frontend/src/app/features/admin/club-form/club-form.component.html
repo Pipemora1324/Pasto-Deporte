@@ -1,0 +1,338 @@
+<div class="form-page">
+  <div class="form-header">
+    <h1 class="form-title">
+      <mat-icon>{{ isEditing ? 'edit' : 'add_circle' }}</mat-icon>
+      {{ isEditing ? 'Editar Club' : 'Nuevo Club' }}
+    </h1>
+    <a mat-button routerLink="/admin/clubes">
+      <mat-icon>arrow_back</mat-icon> Volver
+    </a>
+  </div>
+
+  <div class="loading-overlay" *ngIf="loading">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="!loading">
+    <div class="form-layout">
+
+      <!-- ══ Columna principal ══════════════════════════════════════════ -->
+      <div class="form-main">
+
+        <!-- ── SECCIÓN 1 — Información General ──────────────────────── -->
+        <mat-card class="form-card">
+          <mat-card-header>
+            <mat-card-title>
+              <mat-icon>info</mat-icon> 1. Información General
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Nombre del club *</mat-label>
+              <input matInput formControlName="nombre" placeholder="Ej: Skaters del Sur">
+              <mat-error *ngIf="form.get('nombre')?.hasError('required')">El nombre es obligatorio</mat-error>
+              <mat-error *ngIf="form.get('nombre')?.hasError('minlength')">Mínimo 3 caracteres</mat-error>
+              <mat-error *ngIf="form.get('nombre')?.hasError('pattern')">El nombre solo puede contener letras</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Disciplina deportiva *</mat-label>
+              <input matInput formControlName="disciplinaDeportiva" placeholder="Ej: Patinaje de Carreras">
+              <mat-icon matSuffix>sports</mat-icon>
+              <mat-error *ngIf="form.get('disciplinaDeportiva')?.hasError('required')">La disciplina es obligatoria</mat-error>
+              <mat-error *ngIf="form.get('disciplinaDeportiva')?.hasError('pattern')">Solo letras, espacios y comas</mat-error>
+            </mat-form-field>
+
+            <div class="form-row">
+              <mat-form-field appearance="outline">
+                <mat-label>Dirección</mat-label>
+                <input matInput formControlName="direccion" placeholder="Ej: Cra 22 # 18-40">
+                <mat-icon matSuffix>place</mat-icon>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Teléfono</mat-label>
+                <input matInput formControlName="telefono" placeholder="Ej: 3001234567">
+                <mat-icon matSuffix>phone</mat-icon>
+                <mat-error *ngIf="form.get('telefono')?.hasError('pattern')">El teléfono debe tener entre 7 y 10 dígitos</mat-error>
+              </mat-form-field>
+            </div>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email" type="email" placeholder="club@ejemplo.com">
+              <mat-icon matSuffix>email</mat-icon>
+              <mat-error *ngIf="form.get('email')?.hasError('email')">Ingrese un email válido</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Descripción deportiva</mat-label>
+              <textarea matInput formControlName="descripcionDeportiva" rows="3"
+                        placeholder="Descripción general del club..."></textarea>
+            </mat-form-field>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- ── SECCIÓN 2 — Resolución ────────────────────────────────── -->
+        <mat-card class="form-card">
+          <mat-card-header>
+            <mat-card-title><mat-icon>gavel</mat-icon> 2. Resolución</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="form-row">
+              <mat-form-field appearance="outline">
+                <mat-label>Número de Resolución *</mat-label>
+                <input matInput formControlName="numeroResolucion" placeholder="Ej: 506">
+                <mat-icon matSuffix>tag</mat-icon>
+                <mat-error *ngIf="form.get('numeroResolucion')?.hasError('required')">El número de resolución es obligatorio</mat-error>
+                <mat-error *ngIf="form.get('numeroResolucion')?.hasError('pattern')">El número de resolución solo puede contener números</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Fecha de Expedición</mat-label>
+                <input matInput type="date" formControlName="fechaExpedicionResolucion">
+                <mat-icon matSuffix>calendar_today</mat-icon>
+              </mat-form-field>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- ── SECCIÓN 3 — Reconocimiento Deportivo ──────────────────── -->
+        <mat-card class="form-card">
+          <mat-card-header>
+            <mat-card-title><mat-icon>emoji_events</mat-icon> 3. Reconocimiento Deportivo</mat-card-title>
+            <mat-card-subtitle>El estado VIGENTE / NO VIGENTE se calcula automáticamente según la fecha fin</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="form-row">
+              <mat-form-field appearance="outline">
+                <mat-label>Fecha Inicio</mat-label>
+                <input matInput type="date" formControlName="fechaInicioReconocimiento">
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Fecha Fin</mat-label>
+                <input matInput type="date" formControlName="fechaFinReconocimiento">
+              </mat-form-field>
+            </div>
+            <p class="fecha-error" *ngIf="form.hasError('reconocimientoInvalido')">
+              <mat-icon>warning</mat-icon> La fecha fin no puede ser anterior a la fecha de inicio
+            </p>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- ── SECCIÓN 4 — Período del Órgano de Administración ──────── -->
+        <mat-card class="form-card">
+          <mat-card-header>
+            <mat-card-title><mat-icon>date_range</mat-icon> 4. Período del Órgano de Administración</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="form-row">
+              <mat-form-field appearance="outline">
+                <mat-label>Fecha Inicio</mat-label>
+                <input matInput type="date" formControlName="fechaInicioOrganoAdmon">
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Fecha Fin</mat-label>
+                <input matInput type="date" formControlName="fechaFinOrganoAdmon">
+              </mat-form-field>
+            </div>
+            <p class="fecha-error" *ngIf="form.hasError('organoInvalido')">
+              <mat-icon>warning</mat-icon> La fecha fin no puede ser anterior a la fecha de inicio
+            </p>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- ── SECCIÓN 5 — Representante Legal ───────────────────────── -->
+        <mat-card class="form-card">
+          <mat-card-header>
+            <mat-card-title><mat-icon>person</mat-icon> 5. Representante Legal</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="form-row">
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Nombre completo *</mat-label>
+                <input matInput formControlName="representanteLegalNombre"
+                       placeholder="Ej: CLAUDIA CRISTINA ORDOÑEZ CEBALLOS">
+                <mat-icon matSuffix>account_circle</mat-icon>
+                <mat-error *ngIf="form.get('representanteLegalNombre')?.hasError('required')">El nombre es obligatorio</mat-error>
+                <mat-error *ngIf="form.get('representanteLegalNombre')?.hasError('pattern')">Solo puede contener letras</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Cédula *</mat-label>
+                <input matInput formControlName="representanteLegalCedula" placeholder="Ej: 27.087.233">
+                <mat-icon matSuffix>badge</mat-icon>
+                <mat-error *ngIf="form.get('representanteLegalCedula')?.hasError('required')">La cédula es obligatoria</mat-error>
+                <mat-error *ngIf="form.get('representanteLegalCedula')?.hasError('pattern')">La cédula solo puede contener números</mat-error>
+              </mat-form-field>
+            </div>
+            <mat-form-field appearance="outline">
+              <mat-label>Cargo</mat-label>
+              <input matInput formControlName="representanteLegalCargo"
+                     placeholder="Ej: Presidente, Representante Legal">
+              <mat-icon matSuffix>work</mat-icon>
+            </mat-form-field>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- ── SECCIÓN 6 — Órgano de Administración ──────────────────── -->
+        <mat-card class="form-card">
+          <mat-card-header>
+            <mat-card-title><mat-icon>admin_panel_settings</mat-icon> 6. Órgano de Administración</mat-card-title>
+            <mat-card-subtitle>Agregue los miembros que conforman el órgano de administración</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div formArrayName="organoAdministracion">
+              <div class="dynamic-row"
+                   *ngFor="let ctrl of organoAdmonArray.controls; let i = index"
+                   [formGroupName]="i">
+                <mat-form-field appearance="outline" class="flex-field">
+                  <mat-label>Nombre completo</mat-label>
+                  <input matInput formControlName="nombre" placeholder="Nombre del miembro">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="field-cedula">
+                  <mat-label>Cédula</mat-label>
+                  <input matInput formControlName="cedula">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="field-cargo">
+                  <mat-label>Cargo</mat-label>
+                  <input matInput formControlName="cargo" placeholder="Presidente, Secretario/a...">
+                </mat-form-field>
+                <button mat-icon-button color="warn" type="button"
+                        (click)="eliminarFila(organoAdmonArray, i)" matTooltip="Eliminar fila">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </div>
+            </div>
+            <div class="add-btn-row">
+              <button mat-stroked-button color="primary" type="button" (click)="agregarMiembroAdmon()">
+                <mat-icon>add</mat-icon> Agregar miembro
+              </button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- ── SECCIÓN 7 — Comisión Disciplinaria ────────────────────── -->
+        <mat-card class="form-card">
+          <mat-card-header>
+            <mat-card-title><mat-icon>gavel</mat-icon> 7. Comisión Disciplinaria</mat-card-title>
+            <mat-card-subtitle>Agregue los miembros de la comisión disciplinaria</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div formArrayName="comisionDisciplinaria">
+              <div class="dynamic-row"
+                   *ngFor="let ctrl of comisionArray.controls; let i = index"
+                   [formGroupName]="i">
+                <mat-form-field appearance="outline" class="flex-field">
+                  <mat-label>Nombre completo</mat-label>
+                  <input matInput formControlName="nombre" placeholder="Nombre del miembro">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="field-cedula">
+                  <mat-label>Cédula (opcional)</mat-label>
+                  <input matInput formControlName="cedula">
+                </mat-form-field>
+                <button mat-icon-button color="warn" type="button"
+                        (click)="eliminarFila(comisionArray, i)" matTooltip="Eliminar fila">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </div>
+            </div>
+            <div class="add-btn-row">
+              <button mat-stroked-button color="primary" type="button" (click)="agregarMiembroComision()">
+                <mat-icon>add</mat-icon> Agregar miembro
+              </button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- ── SECCIÓN 8 — Órgano de Control ─────────────────────────── -->
+        <mat-card class="form-card">
+          <mat-card-header>
+            <mat-card-title><mat-icon>shield</mat-icon> 8. Órgano de Control</mat-card-title>
+            <mat-card-subtitle>Agregue los miembros del órgano de control</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div formArrayName="organoControl">
+              <div class="dynamic-row"
+                   *ngFor="let ctrl of organoControlArray.controls; let i = index"
+                   [formGroupName]="i">
+                <mat-form-field appearance="outline" class="flex-field">
+                  <mat-label>Nombre completo</mat-label>
+                  <input matInput formControlName="nombre" placeholder="Nombre del miembro">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="field-cedula">
+                  <mat-label>Cédula</mat-label>
+                  <input matInput formControlName="cedula">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="field-cargo">
+                  <mat-label>Cargo</mat-label>
+                  <input matInput formControlName="cargo" placeholder="Fiscal, Revisor/a...">
+                </mat-form-field>
+                <button mat-icon-button color="warn" type="button"
+                        (click)="eliminarFila(organoControlArray, i)" matTooltip="Eliminar fila">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </div>
+            </div>
+            <div class="add-btn-row">
+              <button mat-stroked-button color="primary" type="button" (click)="agregarMiembroControl()">
+                <mat-icon>add</mat-icon> Agregar miembro
+              </button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+
+      </div>
+
+      <!-- ══ Columna lateral — Sección 10: Archivos ════════════════════ -->
+      <div class="form-sidebar">
+        <mat-card class="form-card">
+          <mat-card-header>
+            <mat-card-title><mat-icon>image</mat-icon> Imagen del Club</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <app-file-upload
+              tipo="imagen"
+              label="Subir imagen"
+              [currentUrl]="currentImagenUrl"
+              (archivoSubido)="onImagenSubida($event)"
+            ></app-file-upload>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="form-card">
+          <mat-card-header>
+            <mat-card-title><mat-icon>picture_as_pdf</mat-icon> Documento PDF</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <app-file-upload
+              tipo="pdf"
+              label="Subir PDF"
+              [currentUrl]="currentPdfUrl"
+              (archivoSubido)="onPdfSubido($event)"
+            ></app-file-upload>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- Aviso de modo edición -->
+        <mat-card class="form-card info-card" *ngIf="isEditing">
+          <mat-card-content>
+            <p class="hint-text">
+              <mat-icon>info</mat-icon>
+              En modo edición puedes agregar nuevos miembros y deportistas usando las secciones del formulario.
+              Los existentes se gestionan desde las pantallas dedicadas.
+            </p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+    <!-- ── Botones de acción ──────────────────────────────────────────── -->
+    <div class="form-actions">
+      <a mat-stroked-button routerLink="/admin/clubes">Cancelar</a>
+      <button mat-raised-button color="primary" type="submit" [disabled]="saving || form.invalid">
+        <mat-spinner diameter="20" *ngIf="saving"></mat-spinner>
+        <mat-icon *ngIf="!saving">save</mat-icon>
+        {{ saving ? 'Guardando...' : (isEditing ? 'Actualizar Club' : 'Crear Club') }}
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,84 @@
+<mat-sidenav-container class="sidenav-container">
+  <!-- Sidenav -->
+  <mat-sidenav
+    #sidenav
+    [opened]="sidenavOpen"
+    mode="side"
+    class="app-sidenav"
+  >
+    <!-- Brand -->
+    <div class="sidenav-header">
+      <div class="brand-icon">
+        <mat-icon>sports_soccer</mat-icon>
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">PASTO DEPORTE</span>
+        <span class="brand-sub">Panel Admin</span>
+      </div>
+    </div>
+
+    <!-- User info -->
+    <div class="user-info" *ngIf="userInfo">
+      <div class="user-avatar">
+        <mat-icon>account_circle</mat-icon>
+      </div>
+      <div class="user-details">
+        <span class="user-name">{{ userInfo.nombre }}</span>
+        <span class="user-role">{{ userInfo.rol }}</span>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <!-- Navigation — cargada dinámicamente desde el backend y renderizada recursivamente -->
+    <mat-nav-list class="nav-list">
+      <app-menu-item
+        *ngFor="let item of menuItems"
+        [item]="item">
+      </app-menu-item>
+    </mat-nav-list>
+
+    <mat-divider></mat-divider>
+
+    <!-- Extra actions -->
+    <mat-nav-list>
+      <a mat-list-item (click)="exportarExcel()" class="action-item">
+        <mat-icon matListItemIcon>file_download</mat-icon>
+        <span matListItemTitle>Exportar Excel</span>
+      </a>
+      <a mat-list-item routerLink="/" class="action-item">
+        <mat-icon matListItemIcon>public</mat-icon>
+        <span matListItemTitle>Ver sitio público</span>
+      </a>
+    </mat-nav-list>
+
+    <!-- Logout at bottom -->
+    <div class="sidenav-footer">
+      <button mat-button class="logout-btn" (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        Cerrar sesión
+      </button>
+    </div>
+  </mat-sidenav>
+
+  <!-- Main content -->
+  <mat-sidenav-content class="main-content">
+    <!-- Top toolbar -->
+    <mat-toolbar class="admin-toolbar">
+      <button mat-icon-button (click)="toggleSidenav()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="toolbar-title">Panel Administrativo</span>
+      <span class="spacer"></span>
+      <span class="user-name-toolbar" *ngIf="userInfo">{{ userInfo.nombre }}</span>
+      <button mat-icon-button (click)="logout()" matTooltip="Cerrar sesión">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <!-- Router content -->
+    <div class="content-area">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

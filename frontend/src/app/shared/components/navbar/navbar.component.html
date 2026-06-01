@@ -1,0 +1,25 @@
+<mat-toolbar class="navbar">
+  <div class="navbar-brand">
+    <mat-icon class="brand-icon">sports_soccer</mat-icon>
+    <span class="brand-title" routerLink="/">PASTO DEPORTE</span>
+  </div>
+
+
+  <span class="spacer"></span>
+
+  <div class="navbar-actions">
+    <ng-container *ngIf="authService.isLoggedIn(); else loginBtn">
+      <a mat-button routerLink="/admin/dashboard">
+        <mat-icon>dashboard</mat-icon> Panel Admin
+      </a>
+      <button mat-icon-button (click)="authService.logout()" matTooltip="Cerrar sesión">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </ng-container>
+    <ng-template #loginBtn>
+      <a mat-raised-button routerLink="/admin/login" class="btn-admin">
+        <mat-icon>admin_panel_settings</mat-icon> Admin
+      </a>
+    </ng-template>
+  </div>
+</mat-toolbar>

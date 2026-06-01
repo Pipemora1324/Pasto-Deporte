@@ -1,0 +1,221 @@
+// Angular Material theme
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$primary-palette: mat.define-palette(mat.$indigo-palette, 800, 600, 900);
+$accent-palette: mat.define-palette(mat.$amber-palette, 600);
+$warn-palette: mat.define-palette(mat.$red-palette);
+
+$pasto-deporte-theme: mat.define-light-theme((
+  color: (
+    primary: $primary-palette,
+    accent: $accent-palette,
+    warn: $warn-palette
+  ),
+  typography: mat.define-typography-config(),
+  density: 0
+));
+
+@include mat.all-component-themes($pasto-deporte-theme);
+
+// Google Fonts
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+// CSS Custom Properties - Pasto Deporte brand colors
+:root {
+  --color-primary: #1a5276;
+  --color-primary-dark: #154360;
+  --color-primary-light: #2471a3;
+  --color-accent: #f39c12;
+  --color-accent-dark: #e67e22;
+  --color-success: #27ae60;
+  --color-warning: #f39c12;
+  --color-danger: #e74c3c;
+  --color-info: #2980b9;
+  --color-gray: #7f8c8d;
+  --color-light: #ecf0f1;
+  --color-dark: #2c3e50;
+  --navbar-height: 64px;
+}
+
+// Global resets & base styles
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f5f6fa;
+  color: #2c3e50;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Utility classes
+.page-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.page-with-navbar {
+  padding-top: var(--navbar-height);
+  min-height: 100vh;
+}
+
+.section-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 8px;
+}
+
+.section-subtitle {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 24px;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.gap-8 { gap: 8px; }
+.gap-16 { gap: 16px; }
+
+.mat-elevation-z2 {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.12);
+}
+
+// Loading spinner overlay
+.loading-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+  flex-direction: column;
+  gap: 16px;
+  color: #888;
+}
+
+// Empty state
+.empty-state {
+  text-align: center;
+  padding: 48px 24px;
+  color: #888;
+
+  mat-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    color: #ccc;
+    margin-bottom: 16px;
+  }
+
+  h3 {
+    margin: 8px 0;
+    color: #555;
+  }
+
+  p {
+    margin: 4px 0;
+    font-size: 0.9rem;
+  }
+}
+
+// Responsive table scroll
+.table-responsive {
+  overflow-x: auto;
+  border-radius: 8px;
+}
+
+// Form styles
+.form-section {
+  margin-bottom: 24px;
+
+  .form-section-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--color-light);
+  }
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+// Snackbar custom styles
+.snack-success .mdc-snackbar__surface {
+  background-color: #27ae60 !important;
+}
+
+.snack-error .mdc-snackbar__surface {
+  background-color: #e74c3c !important;
+}
+
+// Material table fixes
+.mat-mdc-table {
+  width: 100%;
+  background: white;
+}
+
+.mat-mdc-header-cell {
+  font-weight: 700;
+  color: var(--color-primary) !important;
+  background: #f8f9fa;
+}
+
+// Dialog styles
+.mat-mdc-dialog-container {
+  border-radius: 12px !important;
+}
+
+// Responsive helpers
+@media (max-width: 768px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .section-title {
+    font-size: 1.4rem;
+  }
+}

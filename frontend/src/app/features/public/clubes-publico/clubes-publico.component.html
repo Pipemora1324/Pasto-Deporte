@@ -1,0 +1,63 @@
+<app-navbar></app-navbar>
+
+<div class="page-with-navbar">
+  <div class="page-header">
+    <div class="page-container">
+      <h1 class="page-title">
+        <mat-icon>groups</mat-icon>
+        Clubes Deportivos
+      </h1>
+      <p class="page-description">Directorio completo de clubes deportivos del municipio de Pasto</p>
+    </div>
+  </div>
+
+  <div class="page-container">
+    <!-- Filters -->
+    <div class="filters-card">
+      <div class="filters-header">
+        <mat-icon>filter_list</mat-icon>
+        <span>Filtros de búsqueda</span>
+        <button mat-button color="primary" *ngIf="hayFiltros()" (click)="limpiarFiltros()">
+          <mat-icon>clear</mat-icon> Limpiar filtros
+        </button>
+      </div>
+      <div class="filters-grid">
+        <mat-form-field appearance="outline" class="search-nombre">
+          <mat-label>Nombre del club</mat-label>
+          <input matInput [(ngModel)]="searchNombre" placeholder="Buscar por nombre...">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- Results count -->
+    <div class="results-info">
+      <span>{{ clubesFiltrados.length }} club(es) encontrado(s)</span>
+      <span *ngIf="hayFiltros()" class="filter-active-label">
+        <mat-icon>filter_alt</mat-icon> Filtros activos
+      </span>
+    </div>
+
+    <!-- Loading -->
+    <div class="loading-overlay" *ngIf="loading">
+      <mat-spinner diameter="50"></mat-spinner>
+      <span>Cargando clubes...</span>
+    </div>
+
+    <!-- Grid -->
+    <div class="cards-grid" *ngIf="!loading">
+      <app-club-card
+        *ngFor="let club of clubesFiltrados"
+        [club]="club"
+      ></app-club-card>
+    </div>
+
+    <!-- Empty state -->
+    <div class="empty-state" *ngIf="!loading && clubesFiltrados.length === 0">
+      <mat-icon>search_off</mat-icon>
+      <h3>No se encontraron clubes</h3>
+      <p>Ajusta los filtros de búsqueda para encontrar clubes</p>
+      <button mat-button color="primary" (click)="limpiarFiltros()">Limpiar filtros</button>
+    </div>
+  </div>
+</div>

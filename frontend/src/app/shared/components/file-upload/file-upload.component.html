@@ -1,0 +1,71 @@
+<div class="file-upload-container">
+  <div class="upload-area">
+    <div class="preview-area" *ngIf="tipo === 'imagen'">
+      <img
+        *ngIf="previewUrl || currentUrl"
+        [src]="previewUrl || resolveUrl(currentUrl)"
+        alt="Vista previa"
+        class="image-preview"
+      />
+      <div *ngIf="!previewUrl && !currentUrl" class="no-preview">
+        <mat-icon>image</mat-icon>
+        <span>Sin imagen</span>
+      </div>
+    </div>
+
+    <div class="pdf-preview" *ngIf="tipo === 'pdf'">
+      <ng-container *ngIf="currentUrl; else sinPdf">
+        <div class="pdf-loaded">
+          <mat-icon class="pdf-icon">picture_as_pdf</mat-icon>
+          <div class="pdf-info">
+            <span class="pdf-ok">PDF adjunto correctamente</span>
+            <div class="pdf-btns">
+              <a [href]="resolveUrl(currentUrl)"
+                 target="_blank"
+                 mat-raised-button
+                 color="primary"
+                 class="pdf-btn-ver">
+                <mat-icon>visibility</mat-icon> Ver PDF
+              </a>
+              <a [href]="resolveUrl(currentUrl)"
+                 download
+                 mat-stroked-button
+                 color="accent"
+                 class="pdf-btn-dl">
+                <mat-icon>download</mat-icon> Descargar
+              </a>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #sinPdf>
+        <div class="no-pdf">
+          <mat-icon>picture_as_pdf</mat-icon>
+          <span>Sin PDF adjunto</span>
+        </div>
+      </ng-template>
+    </div>
+
+    <mat-progress-bar mode="indeterminate" *ngIf="uploading"></mat-progress-bar>
+
+    <div class="upload-actions">
+      <input
+        type="file"
+        [accept]="accept"
+        (change)="onFileSelected($event)"
+        #fileInput
+        style="display: none"
+      />
+      <button
+        type="button"
+        mat-stroked-button
+        color="primary"
+        (click)="fileInput.click()"
+        [disabled]="uploading"
+      >
+        <mat-icon>{{ icon }}</mat-icon>
+        {{ label }}
+      </button>
+    </div>
+  </div>
+</div>

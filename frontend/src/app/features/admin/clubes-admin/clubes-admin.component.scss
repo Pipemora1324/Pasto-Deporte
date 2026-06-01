@@ -1,0 +1,128 @@
+.mini-semaforo {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    cursor: default;
+
+    &.dot-verde { background: #4CAF50; }
+    &.dot-rojo  { background: #F44336; }
+  }
+}
+
+.admin-page {
+  padding: 24px;
+  max-width: 1300px;
+  margin: 0 auto;
+
+  .page-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    .header-left {
+      .page-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #1a5276;
+        margin: 0 0 4px;
+
+        mat-icon {
+          color: #f39c12;
+        }
+      }
+
+      .page-subtitle {
+        color: #666;
+        margin: 0;
+        font-size: 0.9rem;
+      }
+    }
+
+    .btn-nuevo {
+      font-weight: 600;
+    }
+  }
+
+  .search-card {
+    margin-bottom: 16px;
+    border-radius: 8px;
+    padding: 16px;
+  }
+
+  .table-card {
+    border-radius: 12px;
+    overflow: hidden;
+
+    .club-cell {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      .club-thumb {
+        width: 36px;
+        height: 36px;
+        border-radius: 6px;
+        object-fit: cover;
+      }
+
+      .no-img {
+        width: 36px;
+        height: 36px;
+        border-radius: 6px;
+        background: #e8f4f8;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        mat-icon {
+          font-size: 18px;
+          width: 18px;
+          height: 18px;
+          color: #1a5276;
+        }
+      }
+
+      .club-name {
+        font-weight: 600;
+        color: #2c3e50;
+      }
+    }
+
+    .acciones-cell {
+      display: flex;
+      gap: 2px;
+      flex-wrap: nowrap;
+
+      .icon-deportistas {
+        color: #2980b9;
+      }
+
+      .icon-directorio {
+        color: #8e44ad;
+      }
+
+      .icon-certificar {
+        color: #27ae60;
+      }
+    }
+
+    .club-row:hover {
+      background: #f8f9fa;
+    }
+  }
+
+  mat-paginator {
+    border-top: 1px solid #e0e0e0;
+  }
+}

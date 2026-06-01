@@ -1,0 +1,139 @@
+.hero-banner {
+  background: linear-gradient(135deg, #1a5276 0%, #154360 50%, #0d2f47 100%);
+  color: white;
+  padding: 80px 24px 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(243, 156, 18, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    margin: 0 auto;
+
+    .hero-icon {
+      mat-icon {
+        font-size: 72px;
+        width: 72px;
+        height: 72px;
+        color: #f39c12;
+        margin-bottom: 16px;
+      }
+    }
+
+    .hero-title {
+      font-size: 3rem;
+      font-weight: 900;
+      letter-spacing: 4px;
+      margin: 0 0 8px;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+
+      @media (max-width: 600px) {
+        font-size: 2rem;
+      }
+    }
+
+    .hero-subtitle {
+      font-size: 1.2rem;
+      color: #f39c12;
+      font-weight: 500;
+      margin: 0 0 16px;
+      letter-spacing: 1px;
+    }
+
+    .hero-description {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+  }
+}
+
+.search-section {
+  background: white;
+  border-bottom: 1px solid #eee;
+  padding: 16px 0;
+
+  .search-card {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+
+    .search-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #1a5276;
+      margin: 0 0 16px;
+    }
+
+    .search-fields {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+
+      .search-nombre {
+        flex: 1;
+        min-width: 200px;
+      }
+    }
+  }
+}
+
+.clubs-section {
+  padding: 32px 0;
+
+  .section-header {
+    margin-bottom: 8px;
+  }
+}
+
+.footer {
+  background: #1a5276;
+  color: white;
+  padding: 32px;
+  margin-top: 48px;
+
+  .footer-content {
+    text-align: center;
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+
+      mat-icon {
+        color: #f39c12;
+      }
+    }
+
+    p {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.9rem;
+      margin: 0;
+    }
+  }
+}

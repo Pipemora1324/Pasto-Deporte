@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir \"c:\\\\universidad\\\\Poo\\\\Trabajo final\\\\Pasto_Deporte\" /s /b /a:d)",
+      "Bash(dir \"c:\\\\universidad\\\\Poo\\\\Trabajo final\\\\Pasto_Deporte\" /b)",
+      "Bash(dir \"c:\\\\universidad\\\\Poo\\\\Trabajo final\\\\Pasto_Deporte\\\\frontend\" /b)"
+    ]
+  }
+}

@@ -1,0 +1,54 @@
+.admin-page {
+  padding: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+
+  .page-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    .header-left {
+      .page-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1a5276;
+        margin: 0 0 4px;
+        flex-wrap: wrap;
+
+        mat-icon { color: #f39c12; }
+
+        .club-name {
+          font-size: 1.1rem;
+          font-weight: 400;
+          color: #555;
+        }
+      }
+
+      .page-subtitle { color: #666; margin: 0; font-size: 0.9rem; }
+    }
+
+    .header-actions { display: flex; gap: 8px; }
+  }
+
+  .table-card {
+    border-radius: 12px;
+    overflow: hidden;
+
+    .cargo-chip {
+      display: inline-block;
+      background: #e8f4f8;
+      color: #1a5276;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+  }
+}

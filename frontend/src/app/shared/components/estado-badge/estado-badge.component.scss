@@ -1,0 +1,21 @@
+.estado-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+
+  &.badge-vigente {
+    background-color: #d5f5e3;
+    color: #27ae60;
+    border: 1px solid #27ae60;
+  }
+
+  &.badge-no-vigente {
+    background-color: #fadbd8;
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
+  }
+}

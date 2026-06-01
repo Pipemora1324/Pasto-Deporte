@@ -1,0 +1,66 @@
+<mat-card class="club-card" style="border-top-color: #1a5276">
+  <div class="card-image-container">
+    <img
+      *ngIf="club.imagenUrl; else defaultImg"
+      [src]="resolveUrl(club.imagenUrl)"
+      [alt]="club.nombre"
+      class="club-image"
+      (error)="onImageError($event)"
+    />
+    <ng-template #defaultImg>
+      <div class="image-placeholder">
+        <mat-icon>sports</mat-icon>
+      </div>
+    </ng-template>
+  </div>
+
+  <mat-card-header>
+    <mat-card-title class="club-nombre">{{ club.nombre }}</mat-card-title>
+    <mat-card-subtitle>
+      <mat-icon class="subtitle-icon">sports</mat-icon>
+      {{ club.disciplinaDeportiva }}
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="card-semaforo">
+
+      <div class="semaforo-item"
+           *ngIf="club.fechaFinReconocimiento"
+           [ngClass]="esFechaVigente(club.fechaFinReconocimiento) ? 'item-vigente' : 'item-vencido'">
+        <mat-icon>{{ esFechaVigente(club.fechaFinReconocimiento) ? 'check_circle' : 'cancel' }}</mat-icon>
+        <div class="semaforo-texto">
+          <span class="semaforo-titulo">Reconocimiento Deportivo</span>
+          <span class="semaforo-fecha">hasta {{ club.fechaFinReconocimiento | date:'dd/MM/yyyy' }}</span>
+        </div>
+      </div>
+
+      <div class="semaforo-item"
+           *ngIf="club.fechaFinOrganoAdmon"
+           [ngClass]="esFechaVigente(club.fechaFinOrganoAdmon) ? 'item-vigente' : 'item-vencido'">
+        <mat-icon>{{ esFechaVigente(club.fechaFinOrganoAdmon) ? 'check_circle' : 'cancel' }}</mat-icon>
+        <div class="semaforo-texto">
+          <span class="semaforo-titulo">Órgano de Administración</span>
+          <span class="semaforo-fecha">hasta {{ club.fechaFinOrganoAdmon | date:'dd/MM/yyyy' }}</span>
+        </div>
+      </div>
+
+      <div class="semaforo-item"
+           *ngIf="club.fechaExpedicionResolucion"
+           [ngClass]="esFechaVigente(club.fechaExpedicionResolucion) ? 'item-vigente' : 'item-vencido'">
+        <mat-icon>{{ esFechaVigente(club.fechaExpedicionResolucion) ? 'check_circle' : 'cancel' }}</mat-icon>
+        <div class="semaforo-texto">
+          <span class="semaforo-titulo">Resolución</span>
+          <span class="semaforo-fecha">exp. {{ club.fechaExpedicionResolucion | date:'dd/MM/yyyy' }}</span>
+        </div>
+      </div>
+
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions align="end">
+    <a mat-raised-button color="primary" [routerLink]="['/clubes', club.id]">
+      <mat-icon>visibility</mat-icon> Ver más
+    </a>
+  </mat-card-actions>
+</mat-card>

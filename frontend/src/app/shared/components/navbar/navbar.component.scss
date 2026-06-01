@@ -1,0 +1,89 @@
+.navbar {
+  background: linear-gradient(135deg, #1a5276 0%, #154360 100%);
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  padding: 0 16px;
+
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+
+    .brand-icon {
+      color: #f39c12;
+      font-size: 28px;
+      width: 28px;
+      height: 28px;
+    }
+
+    .brand-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: white;
+      cursor: pointer;
+
+      &:hover {
+        color: #f39c12;
+      }
+    }
+  }
+
+  .navbar-links {
+    display: flex;
+    align-items: center;
+    margin-left: 24px;
+    gap: 4px;
+
+    a {
+      color: rgba(255,255,255,0.85);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      border-radius: 4px;
+      transition: all 0.2s;
+
+      &:hover, &.active-link {
+        color: #f39c12;
+        background: rgba(255,255,255,0.1);
+      }
+    }
+  }
+
+  .spacer {
+    flex: 1;
+  }
+
+  .navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    a, button {
+      color: white;
+    }
+
+    .btn-admin {
+      background: #f39c12;
+      color: white;
+      font-weight: 600;
+
+      &:hover {
+        background: #e67e22;
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar-links {
+    display: none !important;
+  }
+}

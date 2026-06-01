@@ -1,0 +1,197 @@
+.sidenav-container {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.app-sidenav {
+  width: 260px;
+  background: #1a2332;
+  color: white;
+  display: flex;
+  flex-direction: column;
+
+  .sidenav-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 16px;
+    background: linear-gradient(135deg, #1a5276, #154360);
+
+    .brand-icon {
+      width: 44px;
+      height: 44px;
+      background: #f39c12;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+
+      mat-icon {
+        color: white;
+        font-size: 24px;
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+
+      .brand-name {
+        font-size: 0.9rem;
+        font-weight: 800;
+        letter-spacing: 1px;
+        color: white;
+      }
+
+      .brand-sub {
+        font-size: 0.72rem;
+        color: rgba(255,255,255,0.6);
+        letter-spacing: 0.5px;
+      }
+    }
+  }
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: rgba(255,255,255,0.05);
+
+    .user-avatar mat-icon {
+      font-size: 36px;
+      width: 36px;
+      height: 36px;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .user-details {
+      display: flex;
+      flex-direction: column;
+
+      .user-name {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: white;
+      }
+
+      .user-role {
+        font-size: 0.72rem;
+        color: #f39c12;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+    }
+  }
+
+  .nav-list {
+    padding: 8px 0;
+
+    a {
+      color: rgba(255,255,255,0.75);
+      margin: 2px 8px;
+      border-radius: 8px;
+
+      mat-icon { color: rgba(255,255,255,0.5); }
+
+      // Forzar color blanco en el texto interno de MDC
+      ::ng-deep .mdc-list-item__primary-text,
+      ::ng-deep span { color: rgba(255,255,255,0.75) !important; }
+
+      &:hover {
+        background: rgba(255,255,255,0.08);
+
+        mat-icon { color: #f39c12; }
+
+        ::ng-deep .mdc-list-item__primary-text,
+        ::ng-deep span { color: white !important; }
+      }
+
+      &.active-nav-item {
+        background: rgba(243, 156, 18, 0.15) !important;
+
+        mat-icon { color: #f39c12; }
+
+        ::ng-deep .mdc-list-item__primary-text,
+        ::ng-deep span { color: #f39c12 !important; }
+      }
+    }
+  }
+
+  .action-item {
+    color: rgba(255,255,255,0.6) !important;
+    margin: 2px 8px;
+    border-radius: 8px;
+
+    mat-icon { color: rgba(255,255,255,0.4) !important; }
+
+    ::ng-deep .mdc-list-item__primary-text,
+    ::ng-deep span { color: rgba(255,255,255,0.6) !important; }
+
+    &:hover {
+      background: rgba(255,255,255,0.05) !important;
+
+      ::ng-deep .mdc-list-item__primary-text,
+      ::ng-deep span { color: rgba(255,255,255,0.85) !important; }
+    }
+  }
+
+  .sidenav-footer {
+    margin-top: auto;
+    padding: 16px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+
+    .logout-btn {
+      width: 100%;
+      color: rgba(255,255,255,0.6);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      justify-content: flex-start;
+
+      &:hover {
+        color: #e74c3c;
+      }
+    }
+  }
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+
+  .admin-toolbar {
+    background: white;
+    color: #2c3e50;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    z-index: 100;
+    flex-shrink: 0;
+
+    .toolbar-title {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-left: 8px;
+    }
+
+    .spacer {
+      flex: 1;
+    }
+
+    .user-name-toolbar {
+      margin-right: 8px;
+      font-size: 0.9rem;
+      color: #555;
+    }
+  }
+
+  .content-area {
+    flex: 1;
+    overflow-y: auto;
+    background: #f5f6fa;
+  }
+}

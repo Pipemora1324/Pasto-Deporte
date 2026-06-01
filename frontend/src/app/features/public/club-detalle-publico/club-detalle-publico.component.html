@@ -1,0 +1,290 @@
+<app-navbar></app-navbar>
+
+<div class="page-with-navbar">
+  <!-- Loading -->
+  <div class="loading-overlay" *ngIf="loading">
+    <mat-spinner diameter="60"></mat-spinner>
+    <span>Cargando información del club...</span>
+  </div>
+
+  <ng-container *ngIf="!loading && club">
+    <!-- Club Header -->
+    <div class="club-hero">
+      <div class="page-container">
+        <div class="hero-layout">
+          <div class="club-image-container">
+            <img
+              *ngIf="club.imagenUrl"
+              [src]="resolveUrl(club.imagenUrl)"
+              [alt]="club.nombre"
+              class="club-main-image"
+            />
+            <div *ngIf="!club.imagenUrl" class="club-image-placeholder">
+              <mat-icon>sports</mat-icon>
+            </div>
+          </div>
+          <div class="club-main-info">
+            <p class="club-numero" *ngIf="club.numeroClub">Club N.º {{ club.numeroClub }}</p>
+            <h1 class="club-name">{{ club.nombre }}</h1>
+            <p class="club-discipline">
+              <mat-icon>sports</mat-icon>
+              {{ club.disciplinaDeportiva }}
+            </p>
+            <div class="fechas-semaforo">
+              <div class="fecha-item" [ngClass]="esFechaVigente(club.fechaFinReconocimiento) ? 'vigente' : 'vencida'"
+                   *ngIf="club.fechaFinReconocimiento">
+                <mat-icon>{{esFechaVigente(club.fechaFinReconocimiento) ? 'check_circle' : 'cancel'}}</mat-icon>
+                <div>
+                  <span class="fecha-titulo">Reconocimiento Deportivo</span>
+                  <span class="fecha-rango">
+                    {{club.fechaInicioReconocimiento | date:'dd/MM/yyyy'}} —
+                    {{club.fechaFinReconocimiento | date:'dd/MM/yyyy'}}
+                  </span>
+                </div>
+              </div>
+              <div class="fecha-item" [ngClass]="esFechaVigente(club.fechaFinOrganoAdmon) ? 'vigente' : 'vencida'"
+                   *ngIf="club.fechaFinOrganoAdmon">
+                <mat-icon>{{esFechaVigente(club.fechaFinOrganoAdmon) ? 'check_circle' : 'cancel'}}</mat-icon>
+                <div>
+                  <span class="fecha-titulo">Órgano de Administración</span>
+                  <span class="fecha-rango">
+                    {{club.fechaInicioOrganoAdmon | date:'dd/MM/yyyy'}} —
+                    {{club.fechaFinOrganoAdmon | date:'dd/MM/yyyy'}}
+                  </span>
+                </div>
+              </div>
+              <div class="fecha-item" [ngClass]="esFechaVigente(club.fechaExpedicionResolucion) ? 'vigente' : 'vencida'"
+                   *ngIf="club.fechaExpedicionResolucion">
+                <mat-icon>{{esFechaVigente(club.fechaExpedicionResolucion) ? 'check_circle' : 'cancel'}}</mat-icon>
+                <div>
+                  <span class="fecha-titulo">Resolución</span>
+                  <span class="fecha-rango">Expedida: {{club.fechaExpedicionResolucion | date:'dd/MM/yyyy'}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="club-actions">
+              <a *ngIf="club.documentoPdfUrl"
+                 [href]="resolveUrl(club.documentoPdfUrl)"
+                 target="_blank"
+                 mat-raised-button
+                 class="btn-pdf">
+                <mat-icon>download</mat-icon>
+                Descargar Resolución PDF
+              </a>
+              <a mat-stroked-button routerLink="/clubes" class="btn-back">
+                <mat-icon>arrow_back</mat-icon> Volver
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Club Details -->
+    <div class="page-container">
+      <div class="details-layout">
+        <div class="details-main">
+
+          <!-- Descripción deportiva -->
+          <mat-card class="info-card" *ngIf="club.descripcionDeportiva">
+            <mat-card-content>
+              <p class="descripcion-text">{{ club.descripcionDeportiva }}</p>
+            </mat-card-content>
+          </mat-card>
+
+          <!-- Info de contacto -->
+          <mat-card class="info-card" *ngIf="club.direccion || club.telefono || club.email">
+            <mat-card-header>
+              <mat-card-title><mat-icon>contacts</mat-icon> Información de Contacto</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="info-grid">
+                <div class="info-item" *ngIf="club.direccion">
+                  <mat-icon>place</mat-icon>
+                  <div><label>Dirección</label><span>{{ club.direccion }}</span></div>
+                </div>
+                <div class="info-item" *ngIf="club.telefono">
+                  <mat-icon>phone</mat-icon>
+                  <div><label>Teléfono</label><span>{{ club.telefono }}</span></div>
+                </div>
+                <div class="info-item" *ngIf="club.email">
+                  <mat-icon>email</mat-icon>
+                  <div><label>Email</label><span>{{ club.email }}</span></div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+
+          <!-- Resolución -->
+          <mat-card class="info-card" *ngIf="club.numeroResolucion || club.fechaExpedicionResolucion">
+            <mat-card-header>
+              <mat-card-title><mat-icon>gavel</mat-icon> Resolución</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="info-grid">
+                <div class="info-item" *ngIf="club.numeroResolucion">
+                  <mat-icon>tag</mat-icon>
+                  <div><label>Número</label><span>{{ club.numeroResolucion }}</span></div>
+                </div>
+                <div class="info-item" *ngIf="club.fechaExpedicionResolucion">
+                  <mat-icon>calendar_today</mat-icon>
+                  <div>
+                    <label>Fecha de Expedición</label>
+                    <span>{{ club.fechaExpedicionResolucion | date:'dd/MM/yyyy' }}</span>
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+
+          <!-- Reconocimiento Deportivo -->
+          <mat-card class="info-card" *ngIf="club.fechaInicioReconocimiento || club.fechaFinReconocimiento">
+            <mat-card-header>
+              <mat-card-title><mat-icon>emoji_events</mat-icon> Reconocimiento Deportivo</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="info-grid">
+                <div class="info-item" *ngIf="club.fechaInicioReconocimiento">
+                  <mat-icon>calendar_today</mat-icon>
+                  <div>
+                    <label>Vigente desde</label>
+                    <span>{{ club.fechaInicioReconocimiento | date:'dd/MM/yyyy' }}</span>
+                  </div>
+                </div>
+                <div class="info-item" *ngIf="club.fechaFinReconocimiento">
+                  <mat-icon>event</mat-icon>
+                  <div>
+                    <label>Vigente hasta</label>
+                    <span>{{ club.fechaFinReconocimiento | date:'dd/MM/yyyy' }}</span>
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+
+          <!-- Período Órgano de Administración -->
+          <mat-card class="info-card" *ngIf="club.fechaInicioOrganoAdmon || club.fechaFinOrganoAdmon">
+            <mat-card-header>
+              <mat-card-title><mat-icon>date_range</mat-icon> Período Órgano de Administración</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="info-grid">
+                <div class="info-item" *ngIf="club.fechaInicioOrganoAdmon">
+                  <mat-icon>calendar_today</mat-icon>
+                  <div><label>Inicio período</label><span>{{ club.fechaInicioOrganoAdmon | date:'dd/MM/yyyy' }}</span></div>
+                </div>
+                <div class="info-item" *ngIf="club.fechaFinOrganoAdmon">
+                  <mat-icon>event</mat-icon>
+                  <div><label>Fin período</label><span>{{ club.fechaFinOrganoAdmon | date:'dd/MM/yyyy' }}</span></div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+
+          <!-- Representante Legal -->
+          <mat-card class="info-card" *ngIf="club.representanteLegalNombre || club.representanteLegalCedula">
+            <mat-card-header>
+              <mat-card-title><mat-icon>person</mat-icon> Representante Legal</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="info-grid">
+                <div class="info-item" *ngIf="club.representanteLegalNombre">
+                  <mat-icon>account_circle</mat-icon>
+                  <div><label>Nombre</label><span>{{ club.representanteLegalNombre }}</span></div>
+                </div>
+                <div class="info-item" *ngIf="club.representanteLegalCedula">
+                  <mat-icon>badge</mat-icon>
+                  <div><label>Cédula</label><span>{{ club.representanteLegalCedula }}</span></div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+
+          <!-- Órganos -->
+          <mat-card class="tabs-card">
+            <mat-card-header>
+              <mat-card-title><mat-icon>manage_accounts</mat-icon> Órganos ({{ miembros.length }})</mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="tab-content">
+              <ng-container *ngFor="let sec of secciones; let last = last">
+                <div class="organo-seccion">
+                  <h4 class="organo-titulo">
+                    <mat-icon>{{ sec.icon }}</mat-icon> {{ sec.label }}
+                    <span *ngIf="sec.tipo === 'ORGANO_ADMINISTRACION' && (club.fechaInicioOrganoAdmon || club.fechaFinOrganoAdmon)"
+                          class="periodo-badge">
+                      {{ club.fechaInicioOrganoAdmon | date:'dd/MM/yyyy' }}
+                      — {{ club.fechaFinOrganoAdmon | date:'dd/MM/yyyy' }}
+                    </span>
+                  </h4>
+
+                  <div class="empty-state-small" *ngIf="miembrosPorTipo(sec.tipo).length === 0">
+                    <p>Sin miembros registrados</p>
+                  </div>
+
+                  <table mat-table [dataSource]="miembrosPorTipo(sec.tipo)" class="full-width"
+                         *ngIf="miembrosPorTipo(sec.tipo).length > 0">
+                    <ng-container matColumnDef="nombre">
+                      <th mat-header-cell *matHeaderCellDef>Nombre</th>
+                      <td mat-cell *matCellDef="let item">{{ item.nombre }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="cargo">
+                      <th mat-header-cell *matHeaderCellDef>Cargo</th>
+                      <td mat-cell *matCellDef="let item">{{ item.cargo || '—' }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="cedula">
+                      <th mat-header-cell *matHeaderCellDef>Cédula</th>
+                      <td mat-cell *matCellDef="let item">{{ item.cedula || '—' }}</td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="columnsMiembros"></tr>
+                    <tr mat-row *matRowDef="let row; columns: columnsMiembros;"></tr>
+                  </table>
+                </div>
+                <mat-divider *ngIf="!last"></mat-divider>
+              </ng-container>
+
+              <div class="empty-state" *ngIf="miembros.length === 0">
+                <mat-icon>person_off</mat-icon>
+                <p>Sin información de órganos</p>
+              </div>
+            </mat-card-content>
+          </mat-card>
+
+          <!-- Banner de descarga -->
+          <div class="pdf-download-banner" *ngIf="club.documentoPdfUrl">
+            <div class="pdf-banner-icon">
+              <mat-icon>picture_as_pdf</mat-icon>
+            </div>
+            <div class="pdf-banner-text">
+              <h3>Resolución Oficial</h3>
+              <p>Descarga o visualiza el documento oficial de reconocimiento del club</p>
+            </div>
+            <div class="pdf-banner-actions">
+              <a [href]="resolveUrl(club.documentoPdfUrl)"
+                 target="_blank"
+                 mat-raised-button
+                 class="btn-ver-pdf">
+                <mat-icon>visibility</mat-icon>
+                Ver Resolución
+              </a>
+              <a [href]="resolveUrl(club.documentoPdfUrl)"
+                 download
+                 mat-raised-button
+                 class="btn-descargar-pdf">
+                <mat-icon>download</mat-icon>
+                Descargar PDF
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- Not found -->
+  <div class="empty-state page-container" *ngIf="!loading && !club">
+    <mat-icon>error_outline</mat-icon>
+    <h3>Club no encontrado</h3>
+    <a mat-button routerLink="/clubes">Volver al directorio</a>
+  </div>
+</div>
