@@ -1,8 +1,11 @@
 package com.pastodeporte.sistema.service.impl;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.pastodeporte.sistema.exception.BusinessException;
 import com.pastodeporte.sistema.service.IArchivoService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -12,22 +15,26 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Map;
 import java.util.UUID;
 
 /**
- * Implementacion del servicio de gestion de archivos en almacenamiento local.
+ * Implementacion del servicio de gestion de archivos.
+ *
+ * <p>Estrategia dual segun entorno:</p>
+ * <ul>
+ *   <li><b>Produccion</b> ({@code cloudinary.cloud-name} configurado):
+ *       sube a Cloudinary y retorna la URL publica {@code secure_url}.</li>
+ *   <li><b>Desarrollo</b> (cloud-name vacio):
+ *       guarda en disco local y retorna URL relativa {@code /api/archivos/...}.</li>
+ * </ul>
  *
  * <p><b>Pilar POO — POLIMORFISMO:</b> implementa {@link IArchivoService}
  * con {@code @Override} en cada metodo publico.</p>
  * <p><b>Pilar POO — ENCAPSULAMIENTO:</b> la logica de guardado, validacion
  * de tipos MIME y generacion de nombres unicos son metodos privados.</p>
- * <p><b>Pilar POO — OCULTAMIENTO:</b> el directorio de almacenamiento y los
- * detalles de manejo de ficheros son internos a esta clase.</p>
- *
- * <p>Archivos guardados en: {@code uploads/<nombre>}</p>
- * <p>URLs retornadas:
- * imagen → {@code /api/archivos/imagen/<nombre>},
- * PDF    → {@code /api/archivos/pdf/<nombre>}</p>
+ * <p><b>Pilar POO — OCULTAMIENTO:</b> el mecanismo de almacenamiento
+ * (local o nube) es transparente para los controladores.</p>
  *
  * @author Sistema Pasto Deporte — UCC Pasto
  * @version 1.0
@@ -39,37 +46,101 @@ public class ArchivoServiceImpl implements IArchivoService {
     @Value("${archivos.upload-dir}")
     private String uploadDir;
 
+    @Value("${cloudinary.cloud-name:}")
+    private String cloudinaryCloudName;
+
+    @Autowired
+    private Cloudinary cloudinary;
+
     /**
-     * Valida y guarda una imagen en disco, retornando su URL de acceso HTTP.
+     * Valida y guarda una imagen, retornando su URL de acceso HTTP.
+     *
+     * <p>Si Cloudinary esta configurado sube a la carpeta
+     * {@code pasto-deporte/imagenes} y retorna la {@code secure_url}.
+     * En caso contrario guarda en disco local.</p>
      *
      * <p><b>Pilar POO — POLIMORFISMO:</b> {@code @Override} de {@link IArchivoService}.</p>
-     * <p><b>Pilar POO — ENCAPSULAMIENTO:</b> validacion y persistencia son internas.</p>
      *
      * @param archivo archivo multipart de imagen (JPEG, PNG, WebP o GIF)
-     * @return URL relativa de acceso {@code /api/archivos/imagen/...}
+     * @return URL publica de Cloudinary o URL relativa local
      */
     @Override
+    @SuppressWarnings("unchecked")
     public String guardarImagen(MultipartFile archivo) {
         validarArchivo(archivo, new String[]{"image/jpeg", "image/png", "image/webp", "image/gif"});
+
+        if (!cloudinaryCloudName.isBlank()) {
+            try {
+                Map<String, Object> resultado = cloudinary.uploader().upload(
+                    archivo.getBytes(),
+                    ObjectUtils.asMap(
+                        "folder",        "pasto-deporte/imagenes",
+                        "resource_type", "image"
+                    )
+                );
+                String url = (String) resultado.get("secure_url");
+                log.info("Imagen subida a Cloudinary: {}", url);
+                return url;
+            } catch (IOException e) {
+                throw new BusinessException("Error al subir imagen a Cloudinary: " + e.getMessage());
+            }
+        }
+
         String nombre = "img_" + UUID.randomUUID() + "_" + limpiarNombre(archivo.getOriginalFilename());
         guardarArchivo(archivo, nombre);
         return "/api/archivos/imagen/" + nombre;
     }
 
     /**
-     * Valida y guarda un PDF en disco, retornando su URL de acceso HTTP.
+     * Valida y guarda un PDF, retornando su URL de acceso HTTP.
+     *
+     * <p>Si Cloudinary esta configurado sube a la carpeta
+     * {@code pasto-deporte/pdfs} con {@code resource_type=raw} y retorna la
+     * {@code secure_url}. En caso contrario guarda en disco local.</p>
      *
      * <p><b>Pilar POO — POLIMORFISMO:</b> {@code @Override} de {@link IArchivoService}.</p>
      *
      * @param archivo archivo multipart de tipo PDF
-     * @return URL relativa de acceso {@code /api/archivos/pdf/...}
+     * @return URL publica de Cloudinary o URL relativa local
      */
     @Override
+    @SuppressWarnings("unchecked")
     public String guardarPdf(MultipartFile archivo) {
         validarPdf(archivo);
+
+        if (!cloudinaryCloudName.isBlank()) {
+            try {
+                Map<String, Object> resultado = cloudinary.uploader().upload(
+                    archivo.getBytes(),
+                    ObjectUtils.asMap(
+                        "folder",        "pasto-deporte/pdfs",
+                        "resource_type", "raw"
+                    )
+                );
+                String url = (String) resultado.get("secure_url");
+                log.info("PDF subido a Cloudinary: {}", url);
+                return url;
+            } catch (IOException e) {
+                throw new BusinessException("Error al subir PDF a Cloudinary: " + e.getMessage());
+            }
+        }
+
         String nombre = "pdf_" + UUID.randomUUID() + "_" + limpiarNombre(archivo.getOriginalFilename());
         guardarArchivo(archivo, nombre);
         return "/api/archivos/pdf/" + nombre;
+    }
+
+    /**
+     * Retorna la ruta absoluta del PDF en el sistema de ficheros local.
+     *
+     * <p><b>Pilar POO — POLIMORFISMO:</b> {@code @Override} de {@link IArchivoService}.</p>
+     *
+     * @param nombreArchivo nombre del archivo PDF almacenado
+     * @return ruta absoluta del archivo en el servidor
+     */
+    @Override
+    public String obtenerRutaPdf(String nombreArchivo) {
+        return Paths.get(uploadDir, nombreArchivo).toAbsolutePath().toString();
     }
 
     /**
@@ -83,8 +154,8 @@ public class ArchivoServiceImpl implements IArchivoService {
         if (archivo == null || archivo.isEmpty()) {
             throw new BusinessException("El archivo no puede estar vacío");
         }
-        String contentType = archivo.getContentType();
-        String originalName = archivo.getOriginalFilename();
+        String contentType   = archivo.getContentType();
+        String originalName  = archivo.getOriginalFilename();
         boolean esPdf = "application/pdf".equals(contentType)
                 || "application/x-pdf".equals(contentType)
                 || "application/octet-stream".equals(contentType)
@@ -92,19 +163,6 @@ public class ArchivoServiceImpl implements IArchivoService {
         if (!esPdf) {
             throw new BusinessException("Solo se permiten archivos PDF. Tipo recibido: " + contentType);
         }
-    }
-
-    /**
-     * Retorna la ruta absoluta del PDF en el sistema de ficheros.
-     *
-     * <p><b>Pilar POO — POLIMORFISMO:</b> {@code @Override} de {@link IArchivoService}.</p>
-     *
-     * @param nombreArchivo nombre del archivo PDF almacenado
-     * @return ruta absoluta del archivo en el servidor
-     */
-    @Override
-    public String obtenerRutaPdf(String nombreArchivo) {
-        return Paths.get(uploadDir, nombreArchivo).toAbsolutePath().toString();
     }
 
     /**
@@ -120,7 +178,7 @@ public class ArchivoServiceImpl implements IArchivoService {
             Path dir = Paths.get(uploadDir);
             Files.createDirectories(dir);
             Files.copy(archivo.getInputStream(), dir.resolve(nombre), StandardCopyOption.REPLACE_EXISTING);
-            log.info("Archivo guardado: {}/{}", uploadDir, nombre);
+            log.info("Archivo guardado localmente: {}/{}", uploadDir, nombre);
         } catch (IOException e) {
             throw new BusinessException("Error al guardar el archivo: " + e.getMessage());
         }
