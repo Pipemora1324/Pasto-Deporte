@@ -185,8 +185,6 @@ public class ClubServiceImpl implements IClubService {
         club.setRepresentanteLegalNombre(request.getRepresentanteLegalNombre());
         club.setRepresentanteLegalCedula(request.getRepresentanteLegalCedula());
         club.setRepresentanteLegalCargo(request.getRepresentanteLegalCargo());
-        club.setImagenUrl(request.getImagenUrl());
-        club.setDocumentoPdfUrl(request.getDocumentoPdfUrl());
     }
 
     /**
@@ -219,8 +217,6 @@ public class ClubServiceImpl implements IClubService {
         r.setRepresentanteLegalCargo(club.getRepresentanteLegalCargo());
         r.setEstado(club.getEstado());
         r.setEstadoDescripcion(club.getEstado() == EstadoClub.VIGENTE ? "Vigente" : "No Vigente");
-        r.setImagenUrl(club.getImagenUrl());
-        r.setDocumentoPdfUrl(club.getDocumentoPdfUrl());
         r.setFechaCreacion(club.getFechaCreacion());
         r.setFechaModificacion(club.getFechaModificacion());
         return r;

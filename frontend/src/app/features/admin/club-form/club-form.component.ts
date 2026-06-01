@@ -16,7 +16,6 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { FileUploadComponent } from '../../../shared/components/file-upload/file-upload.component';
 import { ClubService } from '../../../core/services/club.service';
 import { MiembroOrganoService } from '../../../core/services/miembro-organo.service';
 import { Club, TipoOrgano } from '../../../core/models/club.model';
@@ -45,8 +44,7 @@ function rangoFechas(inicioKey: string, finKey: string, errKey: string): Validat
     MatSnackBarModule,
     MatProgressSpinnerModule,
     MatDividerModule,
-    MatTooltipModule,
-    FileUploadComponent
+    MatTooltipModule
   ],
   templateUrl: './club-form.component.html',
   styleUrls: ['./club-form.component.scss']
@@ -84,8 +82,6 @@ export class ClubFormComponent implements OnInit {
     representanteLegalNombre: ['', [Validators.required, this.soloLetras]],
     representanteLegalCedula: ['', [Validators.required, this.soloNumPuntos]],
     representanteLegalCargo:  [''],
-    imagenUrl:       [''],
-    documentoPdfUrl: [''],
     organoAdministracion:  this.fb.array([]),
     comisionDisciplinaria: this.fb.array([]),
     organoControl:         this.fb.array([])
@@ -151,8 +147,6 @@ export class ClubFormComponent implements OnInit {
           representanteLegalNombre: club.representanteLegalNombre || '',
           representanteLegalCedula: club.representanteLegalCedula || '',
           representanteLegalCargo:  club.representanteLegalCargo  || '',
-          imagenUrl:       club.imagenUrl       || '',
-          documentoPdfUrl: club.documentoPdfUrl || ''
         });
         this.loading = false;
       },
@@ -162,9 +156,6 @@ export class ClubFormComponent implements OnInit {
       }
     });
   }
-
-  onImagenSubida(url: string): void { this.form.patchValue({ imagenUrl: url }); }
-  onPdfSubido(url: string): void    { this.form.patchValue({ documentoPdfUrl: url }); }
 
   async onSubmit(): Promise<void> {
     if (this.form.invalid) { this.form.markAllAsTouched(); return; }
@@ -217,8 +208,6 @@ export class ClubFormComponent implements OnInit {
       representanteLegalNombre: v.representanteLegalNombre || undefined,
       representanteLegalCedula: v.representanteLegalCedula || undefined,
       representanteLegalCargo:  v.representanteLegalCargo  || undefined,
-      imagenUrl:       v.imagenUrl       || undefined,
-      documentoPdfUrl: v.documentoPdfUrl || undefined,
       estado: 'NO_VIGENTE' as any
     };
   }
@@ -239,6 +228,4 @@ export class ClubFormComponent implements OnInit {
     }
   }
 
-  get currentImagenUrl(): string { return this.form.get('imagenUrl')?.value || ''; }
-  get currentPdfUrl(): string    { return this.form.get('documentoPdfUrl')?.value || ''; }
 }

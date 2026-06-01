@@ -35,15 +35,7 @@
           <th mat-header-cell *matHeaderCellDef>Club</th>
           <td mat-cell *matCellDef="let club">
             <div class="club-cell">
-              <img
-                *ngIf="club.imagenUrl"
-                [src]="club.imagenUrl"
-                [alt]="club.nombre"
-                class="club-thumb"
-              />
-              <div class="no-img" *ngIf="!club.imagenUrl">
-                <mat-icon>groups</mat-icon>
-              </div>
+              <mat-icon class="club-icon">groups</mat-icon>
               <span class="club-name">{{ club.nombre }}</span>
             </div>
           </td>

@@ -100,11 +100,4 @@ public class Club extends BaseEntity {
     @Column(name = "estado", nullable = false, length = 15)
     private EstadoClub estado = EstadoClub.NO_VIGENTE;
 
-    /** URL o ruta de la imagen representativa del club */
-    @Column(name = "imagen_url", length = 500)
-    private String imagenUrl;
-
-    /** URL o ruta del documento PDF de resolución oficial */
-    @Column(name = "documento_pdf_url", length = 500)
-    private String documentoPdfUrl;
 }

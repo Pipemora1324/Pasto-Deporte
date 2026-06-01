@@ -42,8 +42,6 @@ public class ClubResponse {
 
     private EstadoClub estado;
     private String estadoDescripcion;
-    private String imagenUrl;
-    private String documentoPdfUrl;
     private LocalDateTime fechaCreacion;
     private LocalDateTime fechaModificacion;
 }

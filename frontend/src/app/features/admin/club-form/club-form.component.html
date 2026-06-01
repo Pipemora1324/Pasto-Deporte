@@ -282,43 +282,13 @@
 
       </div>
 
-      <!-- ══ Columna lateral — Sección 10: Archivos ════════════════════ -->
-      <div class="form-sidebar">
-        <mat-card class="form-card">
-          <mat-card-header>
-            <mat-card-title><mat-icon>image</mat-icon> Imagen del Club</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <app-file-upload
-              tipo="imagen"
-              label="Subir imagen"
-              [currentUrl]="currentImagenUrl"
-              (archivoSubido)="onImagenSubida($event)"
-            ></app-file-upload>
-          </mat-card-content>
-        </mat-card>
-
-        <mat-card class="form-card">
-          <mat-card-header>
-            <mat-card-title><mat-icon>picture_as_pdf</mat-icon> Documento PDF</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <app-file-upload
-              tipo="pdf"
-              label="Subir PDF"
-              [currentUrl]="currentPdfUrl"
-              (archivoSubido)="onPdfSubido($event)"
-            ></app-file-upload>
-          </mat-card-content>
-        </mat-card>
-
-        <!-- Aviso de modo edición -->
-        <mat-card class="form-card info-card" *ngIf="isEditing">
+      <!-- Aviso de modo edición -->
+      <div class="form-sidebar" *ngIf="isEditing">
+        <mat-card class="form-card info-card">
           <mat-card-content>
             <p class="hint-text">
               <mat-icon>info</mat-icon>
-              En modo edición puedes agregar nuevos miembros y deportistas usando las secciones del formulario.
-              Los existentes se gestionan desde las pantallas dedicadas.
+              En modo edición puedes agregar nuevos miembros usando las secciones del formulario.
             </p>
           </mat-card-content>
         </mat-card>

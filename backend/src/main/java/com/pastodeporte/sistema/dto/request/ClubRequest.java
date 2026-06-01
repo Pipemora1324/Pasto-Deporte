@@ -62,6 +62,4 @@ public class ClubRequest {
     @Size(max = 100)
     private String representanteLegalCargo;
 
-    private String imagenUrl;
-    private String documentoPdfUrl;
 }

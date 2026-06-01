@@ -12,17 +12,6 @@
     <div class="club-hero">
       <div class="page-container">
         <div class="hero-layout">
-          <div class="club-image-container">
-            <img
-              *ngIf="club.imagenUrl"
-              [src]="resolveUrl(club.imagenUrl)"
-              [alt]="club.nombre"
-              class="club-main-image"
-            />
-            <div *ngIf="!club.imagenUrl" class="club-image-placeholder">
-              <mat-icon>sports</mat-icon>
-            </div>
-          </div>
           <div class="club-main-info">
             <p class="club-numero" *ngIf="club.numeroClub">Club N.º {{ club.numeroClub }}</p>
             <h1 class="club-name">{{ club.nombre }}</h1>
@@ -63,14 +52,6 @@
               </div>
             </div>
             <div class="club-actions">
-              <a *ngIf="club.documentoPdfUrl"
-                 [href]="resolveUrl(club.documentoPdfUrl)"
-                 target="_blank"
-                 mat-raised-button
-                 class="btn-pdf">
-                <mat-icon>download</mat-icon>
-                Descargar Resolución PDF
-              </a>
               <a mat-stroked-button routerLink="/clubes" class="btn-back">
                 <mat-icon>arrow_back</mat-icon> Volver
               </a>
@@ -248,33 +229,6 @@
               </div>
             </mat-card-content>
           </mat-card>
-
-          <!-- Banner de descarga -->
-          <div class="pdf-download-banner" *ngIf="club.documentoPdfUrl">
-            <div class="pdf-banner-icon">
-              <mat-icon>picture_as_pdf</mat-icon>
-            </div>
-            <div class="pdf-banner-text">
-              <h3>Resolución Oficial</h3>
-              <p>Descarga o visualiza el documento oficial de reconocimiento del club</p>
-            </div>
-            <div class="pdf-banner-actions">
-              <a [href]="resolveUrl(club.documentoPdfUrl)"
-                 target="_blank"
-                 mat-raised-button
-                 class="btn-ver-pdf">
-                <mat-icon>visibility</mat-icon>
-                Ver Resolución
-              </a>
-              <a [href]="resolveUrl(club.documentoPdfUrl)"
-                 download
-                 mat-raised-button
-                 class="btn-descargar-pdf">
-                <mat-icon>download</mat-icon>
-                Descargar PDF
-              </a>
-            </div>
-          </div>
 
         </div>
       </div>

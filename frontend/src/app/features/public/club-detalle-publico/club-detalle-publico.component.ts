@@ -14,8 +14,6 @@ import { EstadoBadgeComponent } from '../../../shared/components/estado-badge/es
 import { ClubService } from '../../../core/services/club.service';
 import { MiembroOrganoService } from '../../../core/services/miembro-organo.service';
 import { Club, MiembroOrgano, TipoOrgano } from '../../../core/models/club.model';
-import { environment } from '../../../../environments/environment';
-import { SafeUrlPipe } from '../../../shared/pipes/safe-url.pipe';
 
 @Component({
   selector: 'app-club-detalle-publico',
@@ -32,8 +30,7 @@ import { SafeUrlPipe } from '../../../shared/pipes/safe-url.pipe';
     MatDividerModule,
     MatChipsModule,
     NavbarComponent,
-    EstadoBadgeComponent,
-    SafeUrlPipe
+    EstadoBadgeComponent
   ],
   templateUrl: './club-detalle-publico.component.html',
   styleUrls: ['./club-detalle-publico.component.scss']
@@ -83,22 +80,9 @@ export class ClubDetallePublicoComponent implements OnInit {
     return this.miembros.filter(m => m.tipoOrgano === tipo);
   }
 
-  resolveUrl(url?: string): string {
-    if (!url) return '';
-    if (!url.startsWith('/')) return url;
-    // environment.apiUrl ya termina en /api — quitar el /api inicial de la ruta almacenada
-    const path = url.startsWith('/api/') ? url.substring(4) : url;
-    return `${environment.apiUrl}${path}`;
-  }
-
   esFechaVigente(fecha?: string): boolean {
     if (!fecha) return false;
     return new Date(fecha) >= new Date();
   }
 
-  descargarPdf(): void {
-    if (this.club?.documentoPdfUrl) {
-      window.open(this.resolveUrl(this.club.documentoPdfUrl), '_blank');
-    }
-  }
 }

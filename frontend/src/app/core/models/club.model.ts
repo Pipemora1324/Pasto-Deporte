@@ -33,8 +33,6 @@ export interface Club {
   representanteLegalCargo?: string;
   estado: EstadoClub;
   estadoDescripcion?: string;
-  imagenUrl?: string;
-  documentoPdfUrl?: string;
   fechaCreacion?: string;
 }
 

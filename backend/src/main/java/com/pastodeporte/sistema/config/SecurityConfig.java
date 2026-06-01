@@ -78,8 +78,6 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(new AntPathRequestMatcher("/api/auth/**")).permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/api/archivos/**", "GET")).permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/uploads/**")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/api/clubes", "GET")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/api/clubes/**", "GET")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/api/miembros/**", "GET")).permitAll()

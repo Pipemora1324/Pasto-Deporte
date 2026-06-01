@@ -1,19 +1,4 @@
 <mat-card class="club-card" style="border-top-color: #1a5276">
-  <div class="card-image-container">
-    <img
-      *ngIf="club.imagenUrl; else defaultImg"
-      [src]="resolveUrl(club.imagenUrl)"
-      [alt]="club.nombre"
-      class="club-image"
-      (error)="onImageError($event)"
-    />
-    <ng-template #defaultImg>
-      <div class="image-placeholder">
-        <mat-icon>sports</mat-icon>
-      </div>
-    </ng-template>
-  </div>
-
   <mat-card-header>
     <mat-card-title class="club-nombre">{{ club.nombre }}</mat-card-title>
     <mat-card-subtitle>
