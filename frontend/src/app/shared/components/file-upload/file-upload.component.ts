@@ -34,7 +34,9 @@ export class FileUploadComponent {
 
   resolveUrl(url?: string): string {
     if (!url) return '';
-    return url.startsWith('/') ? `${environment.apiUrl}${url}` : url;
+    if (!url.startsWith('/')) return url;
+    const path = url.startsWith('/api/') ? url.substring(4) : url;
+    return `${environment.apiUrl}${path}`;
   }
 
   get accept(): string {

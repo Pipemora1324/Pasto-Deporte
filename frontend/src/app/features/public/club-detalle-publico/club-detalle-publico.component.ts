@@ -85,7 +85,10 @@ export class ClubDetallePublicoComponent implements OnInit {
 
   resolveUrl(url?: string): string {
     if (!url) return '';
-    return url.startsWith('/') ? `${environment.apiUrl}${url}` : url;
+    if (!url.startsWith('/')) return url;
+    // environment.apiUrl ya termina en /api — quitar el /api inicial de la ruta almacenada
+    const path = url.startsWith('/api/') ? url.substring(4) : url;
+    return `${environment.apiUrl}${path}`;
   }
 
   esFechaVigente(fecha?: string): boolean {
