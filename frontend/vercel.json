@@ -1,4 +1,6 @@
 {
+  "buildCommand": "node node_modules/@angular/cli/bin/ng build --configuration production",
+  "outputDirectory": "dist/pasto-deporte-frontend/browser",
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
