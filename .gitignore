@@ -1,0 +1,23 @@
+# Maven
+backend/target/
+backend/.mvn/
+
+# Node / Angular
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.classpath
+*.project
+*.settings/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
