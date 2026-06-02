@@ -2,7 +2,6 @@ package com.pastodeporte.sistema.dto.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -11,8 +10,8 @@ import java.time.LocalDate;
 /**
  * DTO de entrada para creacion y edicion de clubes deportivos.
  *
- * <p>Todas las validaciones se aplican antes de que el dato llegue al servicio,
- * garantizando integridad en la capa de entrada del sistema.</p>
+ * <p>Solo nombre y disciplina son obligatorios. Las demas campos son opcionales
+ * para permitir guardado parcial desde el formulario.</p>
  *
  * <p>Pilares POO aplicados:</p>
  * <ul>
@@ -55,13 +54,9 @@ public class ClubRequest {
     @Size(max = 100)
     private String numeroResolucion;
 
-    @NotNull(message = "La fecha de expedicion de la resolucion es obligatoria")
     private LocalDate fechaExpedicionResolucion;
 
-    @NotNull(message = "La fecha de inicio de reconocimiento es obligatoria")
     private LocalDate fechaInicioReconocimiento;
-
-    @NotNull(message = "La fecha fin de reconocimiento es obligatoria")
     private LocalDate fechaFinReconocimiento;
 
     private LocalDate fechaInicioOrganoAdmon;
