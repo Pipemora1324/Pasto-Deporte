@@ -16,8 +16,9 @@ import java.util.List;
  * <p><b>Pilar POO — OCULTAMIENTO:</b> la generación de queries JPQL es
  * interna a Spring Data y no se expone al resto del sistema.</p>
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  */
 @Repository
 public interface OpcionMenuRepository extends JpaRepository<OpcionMenu, Long> {

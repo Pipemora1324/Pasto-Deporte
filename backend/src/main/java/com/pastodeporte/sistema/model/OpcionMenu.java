@@ -20,8 +20,9 @@ import lombok.Setter;
  * <p><b>Pilar POO — ABSTRACCIÓN:</b> la relación auto-referencial oculta la
  * complejidad de la estructura de árbol al resto del sistema.</p>
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  * @see BaseEntity
  * @see com.pastodeporte.sistema.service.IOpcionMenuService
  */

@@ -16,8 +16,9 @@ import java.util.Optional;
  * Pilar POO aplicado: MODULARIDAD - capa de datos separada de la logica de negocio.
  * Pilar POO aplicado: ABSTRACCION - JpaRepository abstrae las operaciones CRUD.
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  */
 @Repository
 public interface ClubRepository extends JpaRepository<Club, Long> {

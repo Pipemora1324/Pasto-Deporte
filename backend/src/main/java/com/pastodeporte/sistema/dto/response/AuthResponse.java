@@ -9,8 +9,9 @@ import lombok.NoArgsConstructor;
  * Pilar POO aplicado: ENCAPSULAMIENTO - solo expone tokens, nunca la entidad Usuario.
  * Pilar POO aplicado: OCULTAMIENTO - el password nunca aparece en esta respuesta.
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  */
 @Data
 @NoArgsConstructor

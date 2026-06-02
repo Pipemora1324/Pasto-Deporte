@@ -13,8 +13,9 @@ import lombok.AllArgsConstructor;
  * Pilar POO: HERENCIA - extiende BaseEntity.
  * Pilar POO: ENCAPSULAMIENTO - datos del miembro protegidos con acceso vía getters.
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  */
 @Entity
 @Table(name = "miembros_organo")

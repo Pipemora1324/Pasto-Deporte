@@ -26,8 +26,9 @@ import org.springframework.stereotype.Service;
  * <p><b>Pilar POO — ENCAPSULAMIENTO:</b> todos los atributos son privados
  * e inyectados por el constructor generado por Lombok.</p>
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  */
 @Service
 @RequiredArgsConstructor

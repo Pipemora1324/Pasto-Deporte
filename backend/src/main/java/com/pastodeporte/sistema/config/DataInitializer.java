@@ -29,8 +29,9 @@ import org.springframework.stereotype.Component;
  * <p><b>Pilar POO — OCULTAMIENTO:</b> la contraseña se cifra con BCrypt
  * antes de persistirse; nunca se almacena en texto plano.</p>
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  */
 @Component
 @RequiredArgsConstructor
@@ -64,25 +65,17 @@ public class DataInitializer implements CommandLineRunner {
      * el texto plano nunca se persiste en la base de datos.</p>
      */
     private void inicializarUsuarioAdmin() {
-        usuarioRepository.findByUsernameAndEliminadoFalse("admin").ifPresent(admin -> {
-            admin.setUsername("Erika1887");
-            admin.setPassword(passwordEncoder.encode("Erika1887"));
-            admin.setNombre("Administradora Pasto Deporte");
-            usuarioRepository.save(admin);
-            log.info(">>> Usuario admin migrado: username=Erika1887");
-        });
-
-        if (!usuarioRepository.existsByUsername("Erika1887") && !usuarioRepository.existsByUsername("admin")) {
+        if (!usuarioRepository.existsByUsername("admin")) {
             Usuario admin = new Usuario();
-            admin.setUsername("Erika1887");
-            admin.setPassword(passwordEncoder.encode("Erika1887"));
-            admin.setNombre("Administradora Pasto Deporte");
+            admin.setUsername("admin");
+            admin.setPassword(passwordEncoder.encode("admin123"));
+            admin.setNombre("Administrador Pasto Deporte");
             admin.setEmail("admin@pastodeporte.gov.co");
             admin.setRol(RolUsuario.SUPERADMIN);
             usuarioRepository.save(admin);
-            log.info(">>> Usuario creado: username=Erika1887");
+            log.info(">>> Usuario administrador creado: username=admin");
         } else {
-            log.info(">>> Usuario Erika1887 ya existe en la base de datos");
+            log.info(">>> Usuario admin ya existe en la base de datos");
         }
     }
 

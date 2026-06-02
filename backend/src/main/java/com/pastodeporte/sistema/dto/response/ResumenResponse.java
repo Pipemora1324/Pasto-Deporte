@@ -8,8 +8,9 @@ import lombok.NoArgsConstructor;
  * DTO de respuesta para el resumen estadístico del dashboard.
  * Pilar POO: ABSTRACCION - agrupa estadísticas para el administrador.
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  */
 @Data
 @NoArgsConstructor

@@ -19,8 +19,9 @@ import java.util.List;
  * <p><b>Pilar POO — ABSTRACCION:</b> el controlador trabaja contra la interfaz,
  * no contra la implementacion concreta.</p>
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  */
 @RestController
 @RequiredArgsConstructor

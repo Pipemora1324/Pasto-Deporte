@@ -22,8 +22,9 @@ import java.util.function.Function;
  * <p><b>Pilar POO — MODULARIDAD:</b> separa la responsabilidad de tokens del
  * resto de la logica de autenticacion.</p>
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  */
 @Component
 public class JwtUtil {

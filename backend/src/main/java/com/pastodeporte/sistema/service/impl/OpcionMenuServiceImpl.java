@@ -29,8 +29,9 @@ import java.util.stream.Collectors;
  * <p><b>Pilar POO — MODULARIDAD:</b> la lógica de árbol recursivo está
  * completamente aislada en este servicio.</p>
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  * @see IOpcionMenuService
  */
 @Service

@@ -9,8 +9,9 @@ import java.time.LocalDateTime;
  * DTO de respuesta para un miembro de un órgano del club.
  * Pilar POO: ABSTRACCION - expone datos sin revelar la entidad JPA.
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  */
 @Data
 public class MiembroOrganoResponse {

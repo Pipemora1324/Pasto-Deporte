@@ -28,8 +28,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * <p><b>Pilar POO — OCULTAMIENTO:</b> el algoritmo BCrypt y la consulta al
  * repositorio son detalles de implementacion ocultos al resto del sistema.</p>
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  */
 @Configuration
 public class UserDetailsServiceConfig {

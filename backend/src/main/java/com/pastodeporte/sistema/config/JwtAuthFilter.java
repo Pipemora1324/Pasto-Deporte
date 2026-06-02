@@ -28,8 +28,9 @@ import java.io.IOException;
  * <p><b>Pilar POO — POLIMORFISMO:</b> sobreescribe {@code doFilterInternal}
  * con {@code @Override} para proporcionar la validacion JWT.</p>
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  */
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {

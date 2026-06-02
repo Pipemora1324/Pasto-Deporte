@@ -15,8 +15,9 @@ import java.util.List;
  * <p><b>Pilar POO — MODULARIDAD:</b> separa la logica de miembros de
  * otras responsabilidades del sistema.</p>
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  */
 public interface IMiembroOrganoService {
 

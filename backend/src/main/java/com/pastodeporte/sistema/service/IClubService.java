@@ -16,17 +16,43 @@ import java.util.List;
  * <p><b>Pilar POO — MODULARIDAD:</b> toda la logica de clubes esta encapsulada
  * en este contrato y su implementacion.</p>
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  */
 public interface IClubService {
 
     /**
      * Obtiene todos los clubes activos (no eliminados logicamente).
      *
+     * <p><b>POLIMORFISMO — sobrecarga:</b> existen tres versiones de este
+     * metodo; esta retorna todos sin filtro.</p>
+     *
      * @return lista de {@link ClubResponse} de todos los clubes activos
      */
     List<ClubResponse> listarTodos();
+
+    /**
+     * Obtiene los clubes activos filtrados por estado de vigencia.
+     *
+     * <p><b>POLIMORFISMO — sobrecarga:</b> misma operacion que {@link #listarTodos()}
+     * pero restringe por {@link EstadoClub}.</p>
+     *
+     * @param estado estado de vigencia a filtrar (VIGENTE o NO_VIGENTE)
+     * @return lista de {@link ClubResponse} que coinciden con el estado indicado
+     */
+    List<ClubResponse> listarTodos(EstadoClub estado);
+
+    /**
+     * Obtiene los clubes activos filtrados por disciplina deportiva.
+     *
+     * <p><b>POLIMORFISMO — sobrecarga:</b> misma operacion que {@link #listarTodos()}
+     * pero restringe por disciplina.</p>
+     *
+     * @param disciplina fragmento de la disciplina deportiva a buscar
+     * @return lista de {@link ClubResponse} cuya disciplina contiene el fragmento indicado
+     */
+    List<ClubResponse> listarTodos(String disciplina);
 
     /**
      * Busca clubes con filtros combinados de nombre, disciplina y estado.

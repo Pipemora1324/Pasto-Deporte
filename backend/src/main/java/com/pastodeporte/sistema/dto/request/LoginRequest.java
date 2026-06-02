@@ -7,8 +7,9 @@ import lombok.Data;
  * DTO para la solicitud de autenticacion.
  * Pilar POO aplicado: ENCAPSULAMIENTO - datos de login encapsulados en objeto inmutable.
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  */
 @Data
 public class LoginRequest {

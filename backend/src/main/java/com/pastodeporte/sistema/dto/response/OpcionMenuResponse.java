@@ -18,8 +18,9 @@ import java.util.List;
  * <p><b>Pilar POO — MODULARIDAD:</b> la lista {@code hijos} permite representar
  * árboles de cualquier profundidad sin cambiar la estructura del DTO.</p>
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  */
 @Data
 @NoArgsConstructor

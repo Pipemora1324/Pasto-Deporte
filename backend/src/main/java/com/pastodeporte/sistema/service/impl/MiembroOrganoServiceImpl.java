@@ -27,8 +27,9 @@ import java.util.stream.Collectors;
  * <p><b>Pilar POO — OCULTAMIENTO:</b> el soft delete y la validacion de
  * existencia del club son detalles internos del servicio.</p>
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  */
 @Service
 @RequiredArgsConstructor

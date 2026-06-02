@@ -26,8 +26,9 @@ import java.util.List;
  * <p><b>Pilar POO — ENCAPSULAMIENTO:</b> la logica de generacion de Excel
  * esta completamente encapsulada dentro del metodo de exportacion.</p>
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  */
 @Service
 @RequiredArgsConstructor

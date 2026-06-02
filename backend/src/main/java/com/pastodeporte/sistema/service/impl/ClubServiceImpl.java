@@ -26,8 +26,9 @@ import java.util.stream.Collectors;
  * <p><b>Pilar POO — OCULTAMIENTO:</b> el soft delete y el calculo automatico
  * de estado de vigencia son detalles internos del servicio.</p>
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  */
 @Service
 @RequiredArgsConstructor
@@ -40,7 +41,8 @@ public class ClubServiceImpl implements IClubService {
     /**
      * Obtiene todos los clubes activos.
      *
-     * <p><b>Pilar POO — POLIMORFISMO:</b> {@code @Override} de {@link IClubService}.</p>
+     * <p><b>Pilar POO — POLIMORFISMO:</b> {@code @Override} de {@link IClubService}.
+     * Sobrecarga sin parametros — retorna todos los clubes activos.</p>
      *
      * @return lista de {@link ClubResponse} de todos los clubes no eliminados
      */
@@ -49,6 +51,46 @@ public class ClubServiceImpl implements IClubService {
     public List<ClubResponse> listarTodos() {
         return clubRepository.findByEliminadoFalse()
                 .stream().map(this::mapToResponse).collect(Collectors.toList());
+    }
+
+    /**
+     * Obtiene clubes activos filtrados por estado de vigencia.
+     *
+     * <p><b>Pilar POO — POLIMORFISMO:</b> sobrecarga de {@link #listarTodos()};
+     * mismo nombre, distinta firma — filtra por {@link EstadoClub}.</p>
+     *
+     * @param estado estado de vigencia a filtrar (VIGENTE o NO_VIGENTE)
+     * @return lista de {@link ClubResponse} que coinciden con el estado
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public List<ClubResponse> listarTodos(EstadoClub estado) {
+        return clubRepository.findByEliminadoFalse()
+                .stream()
+                .filter(c -> c.getEstado() == estado)
+                .map(this::mapToResponse)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Obtiene clubes activos filtrados por disciplina deportiva.
+     *
+     * <p><b>Pilar POO — POLIMORFISMO:</b> sobrecarga de {@link #listarTodos()};
+     * mismo nombre, distinta firma — filtra por disciplina.</p>
+     *
+     * @param disciplina fragmento de la disciplina deportiva a buscar
+     * @return lista de {@link ClubResponse} cuya disciplina contiene el fragmento
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public List<ClubResponse> listarTodos(String disciplina) {
+        return clubRepository.findByEliminadoFalse()
+                .stream()
+                .filter(c -> c.getDisciplinaDeportiva() != null &&
+                             c.getDisciplinaDeportiva().toLowerCase()
+                              .contains(disciplina.toLowerCase()))
+                .map(this::mapToResponse)
+                .collect(Collectors.toList());
     }
 
     /**

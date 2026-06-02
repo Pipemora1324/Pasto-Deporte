@@ -10,8 +10,9 @@ import lombok.Data;
  * DTO para agregar o editar un miembro de un órgano del club.
  * Pilar POO: ENCAPSULAMIENTO - datos validados antes de persistir.
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  */
 @Data
 public class MiembroOrganoRequest {

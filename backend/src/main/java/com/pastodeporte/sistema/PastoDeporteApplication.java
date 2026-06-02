@@ -8,8 +8,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * Clase principal de la aplicacion Pasto Deporte.
  * Pilar POO aplicado: MODULARIDAD - punto de entrada unico al sistema.
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  */
 @SpringBootApplication
 @EnableScheduling

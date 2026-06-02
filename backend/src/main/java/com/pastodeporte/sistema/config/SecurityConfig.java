@@ -37,8 +37,9 @@ import java.util.List;
  * Pilar POO aplicado: MODULARIDAD - reglas de seguridad HTTP centralizadas aqui.
  * Pilar POO aplicado: ENCAPSULAMIENTO - configuracion de rutas encapsulada.
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  */
 @Configuration
 @EnableWebSecurity

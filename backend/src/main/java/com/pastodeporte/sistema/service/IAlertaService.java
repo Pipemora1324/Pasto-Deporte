@@ -10,8 +10,9 @@ package com.pastodeporte.sistema.service;
  * <p><b>Pilar POO — MODULARIDAD:</b> separa la responsabilidad de alertas
  * del resto de la logica de negocio.</p>
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  */
 public interface IAlertaService {
 

@@ -25,8 +25,9 @@ import java.util.List;
  * <p><b>Pilar POO — OCULTAMIENTO:</b> las credenciales de WhatsApp y el
  * endpoint de la API de notificaciones estan ocultos en la configuracion.</p>
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  */
 @Service
 @RequiredArgsConstructor

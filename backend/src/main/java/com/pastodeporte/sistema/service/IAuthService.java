@@ -13,8 +13,9 @@ import com.pastodeporte.sistema.dto.response.AuthResponse;
  * <p><b>Pilar POO — POLIMORFISMO:</b> cualquier implementacion de esta interfaz
  * puede sustituirse sin modificar los controladores.</p>
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  */
 public interface IAuthService {
 

@@ -6,8 +6,9 @@ package com.pastodeporte.sistema.exception;
  * Pilar POO aplicado: HERENCIA - extiende RuntimeException.
  * Pilar POO aplicado: ABSTRACCION - diferencia errores de negocio de errores tecnicos.
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  */
 public class BusinessException extends RuntimeException {
 

@@ -18,8 +18,9 @@ import java.util.Map;
  * <p><b>Pilar POO — ABSTRACCION:</b> interactua con {@link IAuthService},
  * no con la implementacion concreta.</p>
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  */
 @RestController
 @RequestMapping("/api/auth")

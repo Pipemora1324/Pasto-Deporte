@@ -18,8 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
  * <p><b>Pilar POO — ABSTRACCION:</b> el controlador desconoce la implementacion
  * interna de los reportes (Apache POI, calculos estadisticos, etc.).</p>
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  */
 @RestController
 @RequestMapping("/api/reportes")

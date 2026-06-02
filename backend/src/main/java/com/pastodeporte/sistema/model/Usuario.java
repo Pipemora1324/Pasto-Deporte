@@ -14,8 +14,9 @@ import lombok.AllArgsConstructor;
  * Pilar POO aplicado: ENCAPSULAMIENTO - password NUNCA expuesto en respuestas.
  * Pilar POO aplicado: OCULTAMIENTO - el campo password es privado y va cifrado con BCrypt.
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  */
 @Entity
 @Table(name = "usuarios")

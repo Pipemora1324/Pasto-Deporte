@@ -22,8 +22,9 @@ import java.util.Map;
  * <p><b>Pilar POO — ENCAPSULAMIENTO:</b> el formato estandarizado de la respuesta
  * de error esta encapsulado en el metodo privado {@code buildErrorResponse}.</p>
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  */
 @RestControllerAdvice
 @Slf4j

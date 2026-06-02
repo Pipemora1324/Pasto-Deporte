@@ -13,8 +13,9 @@ import java.time.LocalDateTime;
  * id, fechaCreacion, fechaModificacion y eliminado (soft delete).
  * Pilar POO aplicado: ENCAPSULAMIENTO - atributos private con acceso controlado via Lombok.
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  */
 @MappedSuperclass
 @Getter

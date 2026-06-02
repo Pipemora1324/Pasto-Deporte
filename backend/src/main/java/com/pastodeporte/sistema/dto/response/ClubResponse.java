@@ -10,8 +10,9 @@ import java.time.LocalDateTime;
  * DTO de respuesta para información de un club deportivo.
  * Pilar POO: ABSTRACCION - expone solo los datos necesarios al cliente.
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  */
 @Data
 public class ClubResponse {

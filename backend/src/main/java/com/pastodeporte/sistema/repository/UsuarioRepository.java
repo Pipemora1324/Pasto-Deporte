@@ -12,8 +12,9 @@ import java.util.Optional;
  * Pilar POO aplicado: MODULARIDAD - capa de datos separada.
  * Pilar POO aplicado: OCULTAMIENTO - las consultas de seguridad son internas.
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  */
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {

@@ -15,8 +15,9 @@ import java.time.LocalDate;
  * Pilar POO: HERENCIA - extiende BaseEntity obteniendo id, fechas y soft-delete.
  * Pilar POO: ENCAPSULAMIENTO - todos los atributos son private.
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  */
 @Entity
 @Table(name = "clubes")

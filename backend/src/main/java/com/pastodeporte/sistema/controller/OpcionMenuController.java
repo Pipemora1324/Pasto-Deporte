@@ -25,8 +25,9 @@ import java.util.List;
  * <p><b>Pilar POO — ENCAPSULAMIENTO:</b> la complejidad recursiva queda
  * encapsulada en la capa de servicio, invisible para este controlador.</p>
  *
- * @author Sistema Pasto Deporte — UCC Pasto
+ * @author Felipe Mora — Universidad Cooperativa de Colombia
  * @version 1.0
+ * @since 2024
  * @see IOpcionMenuService
  */
 @RestController
