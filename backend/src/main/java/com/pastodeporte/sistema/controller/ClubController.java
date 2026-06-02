@@ -6,7 +6,6 @@ import com.pastodeporte.sistema.model.enums.EstadoClub;
 import com.pastodeporte.sistema.service.IClubService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +27,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/clubes")
 @RequiredArgsConstructor
-@Slf4j
 public class ClubController {
 
     private final IClubService clubService;
@@ -76,44 +74,38 @@ public class ClubController {
     /**
      * Crea un nuevo club deportivo (protegido, requiere JWT).
      *
+     * <p>Los errores son manejados centralmente por
+     * {@link com.pastodeporte.sistema.exception.GlobalExceptionHandler}.</p>
+     *
+     * <p><b>Pilar POO — MODULARIDAD:</b> el controlador solo delega;
+     * la logica de negocio vive en {@link IClubService}.</p>
+     *
      * @param request DTO con los datos del nuevo club
-     * @return {@link ResponseEntity} con el {@link ClubResponse} creado y HTTP 201,
-     *         o HTTP 400 con mensaje de error si la validacion falla
+     * @return {@link ResponseEntity} con el {@link ClubResponse} creado y HTTP 201
      */
     @PostMapping
-    public ResponseEntity<?> crear(@Valid @RequestBody ClubRequest request) {
-        try {
-            log.info(">>> Recibiendo club: {}", request);
-            ClubResponse response = clubService.crear(request);
-            log.info(">>> Club creado con id: {}", response.getId());
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);
-        } catch (Exception e) {
-            log.error(">>> ERROR al crear club: {}", e.getMessage(), e);
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    public ResponseEntity<ClubResponse> crear(@Valid @RequestBody ClubRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(clubService.crear(request));
     }
 
     /**
      * Actualiza los datos de un club existente (protegido, requiere JWT).
      *
+     * <p>Los errores son manejados centralmente por
+     * {@link com.pastodeporte.sistema.exception.GlobalExceptionHandler}.</p>
+     *
+     * <p><b>Pilar POO — MODULARIDAD:</b> el controlador solo delega;
+     * la logica de negocio vive en {@link IClubService}.</p>
+     *
      * @param id      identificador del club a actualizar
      * @param request DTO con los nuevos datos del club
-     * @return {@link ResponseEntity} con el {@link ClubResponse} actualizado,
-     *         o HTTP 400 con mensaje de error si la validacion falla
+     * @return {@link ResponseEntity} con el {@link ClubResponse} actualizado
      */
     @PutMapping("/{id}")
-    public ResponseEntity<?> actualizar(
+    public ResponseEntity<ClubResponse> actualizar(
             @PathVariable Long id,
             @Valid @RequestBody ClubRequest request) {
-        try {
-            log.info(">>> Actualizando club id={}: {}", id, request);
-            ClubResponse response = clubService.actualizar(id, request);
-            log.info(">>> Club id={} actualizado", id);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            log.error(">>> ERROR al actualizar club id={}: {}", id, e.getMessage(), e);
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+        return ResponseEntity.ok(clubService.actualizar(id, request));
     }
 
     /**
